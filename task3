@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Destination {
+    String name;
+    String date;
+    String preferences;
+
+    Destination(String name, String date, String preferences) {
+        this.name = name;
+        this.date = date;
+        this.preferences = preferences;
+    }
+
+    
+    public String toString() {
+        return "Destination: " + name + ", Date: " + date + ", Preferences: " + preferences;
+    }
+}
+
+public class TravelItineraryPlanner {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Destination> itinerary = new ArrayList<>();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("1. Add Destination");
+            System.out.println("2. View Itinerary");
+            System.out.println("3. Exit");
+
+            int choice = sc.nextInt();
+            sc.nextLine(); 
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Destination: ");
+                    String name = sc.nextLine();
+                    System.out.print("Enter Date (e.g., 2024-12-20): ");
+                    String date = sc.nextLine();
+                    System.out.print("Enter Preferences (e.g., sightseeing, food): ");
+                    String preferences = sc.nextLine();
+                    itinerary.add(new Destination(name, date, preferences));
+                    break;
+                case 2:
+                    if (itinerary.isEmpty()) {
+                        System.out.println("No destinations added yet.");
+                    } else {
+                        for (Destination d : itinerary) {
+                            System.out.println(d);
+                        }
+                    }
+                    break;
+                case 3:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+    }
+}
