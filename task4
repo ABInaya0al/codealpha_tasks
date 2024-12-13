@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Room {
+    int roomNumber;
+    String category;
+    boolean isBooked;
+
+    Room(int roomNumber, String category) {
+        this.roomNumber = roomNumber;
+        this.category = category;
+        this.isBooked = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Room " + roomNumber + " (" + category + ") - " + (isBooked ? "Booked" : "Available");
+    }
+}
+
+public class HotelReservationSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Room> rooms = new ArrayList<>();
+        rooms.add(new Room(101, "Single"));
+        rooms.add(new Room(102, "Double"));
+        rooms.add(new Room(103, "Suite"));
+        rooms.add(new Room(104, "Single"));
+        rooms.add(new Room(105, "Double"));
+
+        boolean running = true;
+
+        while (running) {
+            System.out.println("1. View Rooms");
+            System.out.println("2. Book a Room");
+            System.out.println("3. View Bookings");
+            System.out.println("4. Exit");
+
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    for (Room room : rooms) {
+                        System.out.println(room);
+                    }
+                    break;
+                case 2:
+                    System.out.print("Enter room number to book: ");
+                    int roomNumber = sc.nextInt();
+                    boolean found = false;
+
+                    for (Room room : rooms) {
+                        if (room.roomNumber == roomNumber) {
+                            found = true;
+                            if (!room.isBooked) {
+                                room.isBooked = true;
+                                System.out.println("Room " + roomNumber + " booked successfully.");
+                            } else {
+                                System.out.println("Room " + roomNumber + " is already booked.");
+                            }
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        System.out.println("Invalid room number.");
+                    }
+                    break;
+                case 3:
+                    for (Room room : rooms) {
+                        if (room.isBooked) {
+                            System.out.println("Booked: Room " + room.roomNumber + " (" + room.category + ")");
+                        }
+                    }
+                    break;
+                case 4:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
+    }
+}
